@@ -3,65 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+    />
     <title>index</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <!-- <script src="./assets/js/script.js"></script> -->
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+  />
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <!-- Demo styles -->
+   <style>
+    html,
+    body {
+      position: relative;
+      height: 100%;
+    }
+
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <!-- <script src="./assets/js/script.js"></script> -->
+  
+
     <script src="./assets/js/mydata.json"></script>
+    <!-- Swiper JS -->
+    
+     
     <script>
      function getData(status){
       
       
         var orignalData = JSON.parse(data);
         var actualData = orignalData.filter(a=>{if(a.status==status) return a})
-      
-      var dt = '<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel"><div class="carousel-inner">'
-           
 
+
+
+        var dt = '<div class="swiper mySwiper"><div class="swiper-wrapper">'
         for(let i=0; i<actualData.length; i++ ){
           
-          let ac = i == 0? " active" : ""
-          dt += i == 0? '<div class="carousel-item'+ac+'">':i%4==0?'<div class="carousel-item'+ac+'">':''
-          dt += '<div class="card" style="width: 18rem; float : left;margin:5px;text-align: center">'
-          dt += '<img src="'+actualData[i].imagelink+'" class="card-img-top" alt="...">'
+          dt += '<div class="card swiper-slide" style="width: 18rem; float : left;margin:5px;text-align: center">'
+          dt += '<img src="'+actualData[i].imagelink+'" class="card-img-top" alt="..." height="150px" width="150px">'
           dt += '<div class="card-body">'
           dt += '<h5 class="card-title">'+actualData[i].imagename+'</h5>'
           dt += '<p class="card-text">'+actualData[i].price+'</p>'
           dt += '<p class="card-text" style="color:blue">'+actualData[i].actulprice+'</p>'
           dt +='<div>'
-            // dt+='checked='
-          // dt += '<p class="card-text">'+dat[i].starratingValue+'</p>'
           dt +='<style>'
             dt+='.checked {'
            dt+='color: orange;}'
            dt +='</style>'
            for(let j=0; j<5; j++){
             let starValue =actualData[i].starratingValue*1>j?" checked":''
-            // if(actualData[i].starratingValue*1>j){
-            //   dt+=' <span class="fa fa-star checked"></span>'
-            // }else{
-              dt+=' <span class="fa fa-star'+starValue+'"></span>'
-            // }
+            dt+=' <span class="fa fa-star'+starValue+'"></span>'
           }
          dt+='</div>'
           dt += '<a href="#" class="btn btn-warning">View Deal</a>'
-          dt += '</div></div>'
-          dt += (i+1)%4==0?'</div>': i == actualData.length-1 ? '</div>':''
+          dt += '</div>'
+          dt += '</div>'
         }
         dt += '</div>'
-        dt += '<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">'
-        dt += '<span class="carousel-control-prev-icon" aria-hidden="true"></span>'
-        dt += '<span class="visually-hidden">Previous</span>'
-        dt += '</button>'
-        dt += '<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">'
-        dt += '<span class="carousel-control-next-icon" aria-hidden="true"></span>'
-        dt += '<span class="visually-hidden">Next</span>'
-        dt += '</button></div>'
+        // dt += '<div class="swiper-pagination"></div>'
+        dt += '</div>'
+        
         document.getElementById("products").innerHTML=dt;
+        initiateSwiper()
       }
-     </script>
+    
+     
+    </script>
+    <!-- Initialize Swiper -->
+   
 </head>
 
 <body onload="getData('available')">
@@ -81,4 +135,32 @@
     <div id="products"></div>
 <!-- <img id="photo" width="20%" height="20%"> -->
 </body>
+
 </html>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+   <script>
+    function initiateSwiper() {
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        breakpoints: {
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 40,
+          },
+          1024: {
+            slidesPerView: 5,
+            spaceBetween: 50,
+          },
+        },
+      });
+    }
+    </script>
